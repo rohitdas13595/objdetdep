@@ -1,0 +1,12 @@
+<!doctype html>
+    <title>Upload new File</title>
+    <h1>Upload new File</h1>
+    <form method=post enctype=multipart/form-data>
+      <input type=file name=image value=Predict>
+      <input type=submit value=Upload><br>
+      {% if image_name %}
+      <img alt=""  width=600 height=600 src="static/images/{{image_name}}">
+      <img alt=""  width=600 height=600 src="static/p_images/{{image_name}}">
+      <h3>Prediction ={{prediction}}</h3>
+      {% endif %}
+    </form>
