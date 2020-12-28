@@ -4,18 +4,21 @@ from flask import Flask,render_template,request,url_for
 import os,io
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from PIL import Image
 
 app =Flask(__name__)
-prototxt='MobileNetSSD_deploy.prototxt.txt'
-model='MobileNetSSD_deploy.caffemodel'
-confd=0.2
+
+
 
 
 BASE_DIR=os.path.dirname(os.path.realpath(__file__))
 UPLOAD_FOLDER= os.path.join(BASE_DIR,'static/images')
 new_loc=os.path.join(BASE_DIR,'static/p_images')
+prototxt=os.path.join(BASE_DIR,'MobileNetSSD_deploy.prototxt.txt')
+model=os.path.join(BASE_DIR,'MobileNetSSD_deploy.caffemodel')
+confd=0.2
+
 # defining the classification funtion
 def get_class(image_path):
     
@@ -33,9 +36,10 @@ def get_class(image_path):
     # by resizing to a fixed 300x300 pixels and then normalizing it
     # (note: normalization is done via the authors of the MobileNet SSD
     # implementation)
-    img=plt.imread(image_path)
+    img=cv2.imread(image_path)
+    
     #image =Image.open(io.BytesIO(image_file))
-    image=img
+    image=normal=cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
     (h, w) = image.shape[:2]
     blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 0.007843, (300, 300), 127.5)
 
@@ -71,7 +75,7 @@ def get_class(image_path):
 			    cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2)
 		    labels.append(label)
     print(labels)
-    #plt.imshow(image)
+    
     return(image,labels)
 
 
@@ -88,12 +92,23 @@ def upload_predict():
                 image_file.filename
             )
             image_file.save(image_location)
-            c_image,lebels=get_class(image_location)
+            img=Image.open(image_location)
+            resized_image=img.resize((300,300))
+            os.remove(image_location)
+            resized_image.save(image_location)
+
+            c_image,labels=get_class(image_location)
             d_image=Image.fromarray(c_image, "RGB")
             loc=os.path.join(new_loc,image_file.filename)
             d_image.save(loc)
+            text=''
+        
+            for i in labels:
+	            text=text+ i[0:-8]+' + '
+            text=text[0:-3]
+                
             
-            return render_template("index.html",prediction=1,image_name=image_file.filename)
+            return render_template("index.html",prediction=1,image_name=image_file.filename,labels=labels)
 
     return render_template("index.html", prediction = 0,image_loc=None)
 
