@@ -1,10 +1,9 @@
 # way to upload images to
 # way to save the images
-from flask import Flask,render_template,request,url_for
-import os,io
+from flask import Flask,render_template,request
+import os
 import cv2
 import numpy as np
-#import matplotlib.pyplot as plt
 from PIL import Image
 
 app =Flask(__name__)
@@ -112,6 +111,6 @@ def upload_predict():
 
     return render_template("index.html", prediction = 0,image_loc=None)
 
-#if __name__ == "__main__":
+if __name__ == "__main__":
 
-app.run()
+    app.run(debug=True)
