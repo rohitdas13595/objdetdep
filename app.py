@@ -39,7 +39,7 @@ def get_class(image_path):
     img=cv2.imread(image_path)
     
     #image =Image.open(io.BytesIO(image_file))
-    image=normal=cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
+    image=cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
     (h, w) = image.shape[:2]
     blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 0.007843, (300, 300), 127.5)
 
