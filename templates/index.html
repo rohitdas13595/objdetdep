@@ -1,45 +1,44 @@
-<!doctype html>
-  <head>
-    <title>Upload new File</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Love+Ya+Like+A+Sister&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
-  </head>
-  <body>
-        <nav class="navbar navbar-dark bg-dark fixed-top">
-          <div class="a">
-            <span class="navbar-brand mb-0 h1">Object Detection</span>
-          </div>
-        </nav>
-        <div class="jumbotron text-center">
-          OBJECT DETECTION
-        </div>
-        <div class="x text-center">
-          <div class=" container y">
-            <h1 class="text-center">Upload new File</h1>
-            <form method=post enctype=multipart/form-data>
-              <input type=file name=image value=Predict>
-              <input type=submit value=Upload><br>
-          </div>
-            {% if image_name %}
-            <div>
-              <img alt=""  width=550 height=600 src="static/images/{{image_name}}">
-              <div class="container">
-                <ul>
-                  <h3>Preticted Items Are</h3>
-                  {% for label in labels %}
-                  <li>{{label}}</li><br>
-                  {% endfor %}
-              
-                </ul>
-              </div>
-              <img alt=""  width=550 height=600 src="static/p_images/{{image_name}}">
+{% extends "check.html" %}
+
+
+{% block content %}
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card card-signin my-5">
+            <div class="card-body">
+              <h5 class="card-title text-center">Upload New File </h5>
+              <form class="form-signin" method=post enctype=multipart/form-data >
+                <div class="form-label-group">
+                  <input type=file id="inputEmail" name=image  class="form-control" autofocus>
+                </div>
+  
+                <div class="form-label-group">
+                  <input type="submit" id="inputPassword" value=Upload class="btn btn-primary" >
+                </div>
+                {% if image_name %}
+                <div>
+                    <img alt=""  width=250 height=250 src="static/images/{{image_name}}">
+                        <div class="card">
+                            <ul>
+                                <h3>Preticted Items Are</h3>
+                                    {% for label in labels %}
+                                        <li>{{label}}</li><br>
+                                    {% endfor %}
+      
+                            </ul>
+                        </div>
+                    <img alt=""  width=250 height=250 src="static/p_images/{{image_name}}">
+                </div>
+                <h3>Prediction ={{prediction}}</h3>
+                {% endif %}
+                
+              </form>
             </div>
-            <h3>Prediction ={{prediction}}</h3>
-            {% endif %}
-        </form>
+          </div>
         </div>
-        
+      </div>
+    </div>
   </body>
+{% endblock %}

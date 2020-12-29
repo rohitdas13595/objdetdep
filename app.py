@@ -1,6 +1,6 @@
 # way to upload images to
 # way to save the images
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,url_for
 import os
 import cv2
 import numpy as np
@@ -104,12 +104,24 @@ def upload_predict():
         
             for i in labels:
 	            text=text+ i[0:-8]+' + '
-            text=text[0:-3]
+            text=text[0:-3] 
                 
             
-            return render_template("index.html",prediction=1,image_name=image_file.filename,labels=labels)
+            return render_template("index.html",prediction=1,image_name=image_file.filename,labels=labels,title="Home")
 
-    return render_template("index.html", prediction = 0,image_loc=None)
+    return render_template("index.html", prediction = 0,image_loc=None,title="Home")
+
+#route for history view
+@app.route("/history", methods=["GET","POST"])
+def history():
+    dirs=os.listdir(new_loc)
+    return render_template("history.html",title="History", dirs=dirs)
+
+#route for about view
+@app.route("/about", methods=["GET","POST"])
+def about():
+    return render_template("about.html",title="About")
+
 
 if __name__ == "__main__":
 
