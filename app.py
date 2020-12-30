@@ -127,10 +127,10 @@ def history():
             os.remove(iloc)
             os.remove(ioloc)
             dirs=os.listdir(new_loc)
-            return render_template("history.html",title="History", dirs=dirs,newloc=new_loc)
+            return render_template("history.html",title="History", dirs=dirs)
     
     dirs=os.listdir(new_loc)
-    return render_template("history.html",title="History", dirs=dirs,newloc=new_loc)
+    return render_template("history.html",title="History", dirs=dirs)
 
 #route for about view
 @app.route("/about", methods=["GET","POST"])
