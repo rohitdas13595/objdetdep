@@ -122,8 +122,8 @@ def history():
             i=None
         print (i)
         if i:
-            iloc=os.path.join(new_loc,i)
-            ioloc=os.path.join(UPLOAD_FOLDER,i)
+            iloc=os.path.join(new_loc,str(i))
+            ioloc=os.path.join(UPLOAD_FOLDER,str(i))
             os.remove(iloc)
             os.remove(ioloc)
             dirs=os.listdir(new_loc)
