@@ -114,13 +114,31 @@ def upload_predict():
 #route for history view
 @app.route("/history", methods=["GET","POST"])
 def history():
+    
+    if request.method == 'GET':
+        try:
+            i=request.args['image']
+        except :
+            i=None
+        print (i)
+        if i:
+            iloc=os.path.join(new_loc,i)
+            ioloc=os.path.join(UPLOAD_FOLDER,i)
+            os.remove(iloc)
+            os.remove(ioloc)
+            dirs=os.listdir(new_loc)
+            return render_template("history.html",title="History", dirs=dirs,newloc=new_loc)
+    
     dirs=os.listdir(new_loc)
-    return render_template("history.html",title="History", dirs=dirs)
+    return render_template("history.html",title="History", dirs=dirs,newloc=new_loc)
 
 #route for about view
 @app.route("/about", methods=["GET","POST"])
 def about():
     return render_template("about.html",title="About")
+
+
+
 
 
 if __name__ == "__main__":

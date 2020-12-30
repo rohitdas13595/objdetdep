@@ -48,7 +48,7 @@
     }
     </style>
     
-    
+     
     
 
     
@@ -56,8 +56,14 @@
             {% for dir in dirs %}
             <div class="column">
                 <div class="card">
-                    
+                   
+                      <form >
                         <img class="card-img-top" src="static/p_images/{{dir}}" alt="Card image cap">
+                         <button class="btn btn-danger">
+                          <i class="glyphicon glyphicon-trash"></i>
+                          </button>
+                          <input type="hidden" name="image" value="{{dir}}">
+                      </form>
                         
                 </div>
             </div>
