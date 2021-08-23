@@ -1,4 +1,4 @@
-# objdetdep
+# Object Detection using OpenCv and obileNet SSD
 
 This is simple Object detection model which detects given objects in a picture.
 Developed using flask, and openCV.
